@@ -217,6 +217,82 @@ async function runDiscover() {
   console.log(JSON.stringify(units.slice(0, 5), null, 2));
 }
 
+// Finder alle arrays-af-objekter dybt i et JSON-svar.
+function deepFindObjectArrays(data, acc = []) {
+  if (Array.isArray(data)) {
+    const objs = data.filter((x) => x && typeof x === "object" && !Array.isArray(x));
+    if (objs.length) acc.push(objs);
+    data.forEach((x) => deepFindObjectArrays(x, acc));
+  } else if (data && typeof data === "object") {
+    Object.values(data).forEach((v) => deepFindObjectArrays(v, acc));
+  }
+  return acc;
+}
+
+// Kompakt resume: feltnavne, ét eksempel-objekt, og felter med faa
+// distinkte vaerdier (= sandsynlige status-felter). Fylder kun nogle linjer.
+async function runDump() {
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  const seen = [];
+  page.on("response", async (res) => {
+    try {
+      const ct = (res.headers()["content-type"] || "").toLowerCase();
+      if (!ct.includes("json")) return;
+      seen.push({ url: res.url(), text: await res.text() });
+    } catch (_) { /* spring uoplaeselige svar over */ }
+  });
+
+  log("Aabner siden og laver et kort resume af dataene...");
+  await page.goto(CONFIG.groundUrl, { waitUntil: "networkidle", timeout: 60000 });
+  await page.waitForTimeout(3500);
+  await browser.close();
+
+  const arrays = [];
+  seen.forEach((r) => {
+    try {
+      deepFindObjectArrays(JSON.parse(r.text)).forEach((objs) =>
+        arrays.push({ src: r.url, objs })
+      );
+    } catch (_) {}
+  });
+  arrays.sort((a, b) => b.objs.length - a.objs.length);
+
+  log(`JSON-svar: ${seen.length}. Objekt-lister fundet: ${arrays.length}.`);
+  log("Endpoints:");
+  [...new Set(seen.map((s) => s.url))].slice(0, 8).forEach((u) => log(`  - ${u}`));
+
+  // Resume af de 3 stoerste objekt-lister:
+  arrays.slice(0, 3).forEach((a, i) => {
+    const objs = a.objs;
+    console.log(`\n--- LISTE #${i}: ${objs.length} objekter ---`);
+    console.log("Felter: " + Object.keys(objs[0]).join(", "));
+    console.log("Eksempel (foerste objekt):");
+    console.log(JSON.stringify(objs[0], null, 2).slice(0, 1000));
+
+    // Felter med faa forskellige vaerdier = sandsynlige status-felter:
+    const keys = Object.keys(objs[0]);
+    const enumLines = [];
+    for (const k of keys) {
+      const vals = new Set();
+      for (const o of objs) {
+        const v = o[k];
+        if (v === null || ["string", "number", "boolean"].includes(typeof v)) {
+          vals.add(String(v));
+        }
+        if (vals.size > 10) break;
+      }
+      if (vals.size >= 1 && vals.size <= 8) {
+        enumLines.push(`  ${k}: ${[...vals].join(" | ")}`);
+      }
+    }
+    if (enumLines.length) {
+      console.log("Felter med faa vaerdier (mulige status-felter):");
+      console.log(enumLines.join("\n"));
+    }
+  });
+}
+
 async function checkOnce(browser) {
   const page = await browser.newPage();
   let result;
@@ -239,6 +315,10 @@ async function checkOnce(browser) {
 }
 
 (async () => {
+  if (process.argv.includes("--dump")) {
+    await runDump();
+    return;
+  }
   if (process.argv.includes("--discover")) {
     await runDiscover();
     return;
