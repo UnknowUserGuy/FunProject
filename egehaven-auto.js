@@ -100,6 +100,17 @@ function deepFindUnitArray(data) {
   return best || [];
 }
 
+function isRealUnit(u) {
+  if (u.id === undefined && u.address === undefined) return false;
+  const addr = String(u.address || "").trim().toLowerCase();
+  // Drop pladsholdere som "0 0", "stage 4 0", tom adresse:
+  if (!addr || addr.startsWith("stage") || addr.startsWith("0")) return false;
+  // Drop raekker uden rigtigt areal:
+  const area = Number(String(u.area ?? "0").replace(/[^\d.]/g, ""));
+  if (!area) return false;
+  return true;
+}
+
 function extractUnits(raw) {
   return deepFindUnitArray(raw).map((u) => ({
     id:      pickField(u, FIELD_ALIASES.id),
@@ -107,7 +118,7 @@ function extractUnits(raw) {
     area:    pickField(u, FIELD_ALIASES.area),
     price:   pickField(u, FIELD_ALIASES.price),
     status:  pickField(u, FIELD_ALIASES.status)
-  })).filter((u) => u.id !== undefined || u.address !== undefined);
+  })).filter(isRealUnit);
 }
 
 const normStatus = (s) => String(s ?? "").trim().toLowerCase();
