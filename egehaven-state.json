@@ -1,0 +1,751 @@
+{
+  "1267": {
+    "id": "1267",
+    "address": "EGEHAVEN 28, st. TV",
+    "area": "86",
+    "price": "3895000",
+    "status": "Solgt"
+  },
+  "1268": {
+    "id": "1268",
+    "address": "EGEHAVEN 28, st. TH",
+    "area": "68",
+    "price": "3195000",
+    "status": "Solgt"
+  },
+  "1269": {
+    "id": "1269",
+    "address": "EGEHAVEN 28, 1. TV",
+    "area": "93",
+    "price": "4295000",
+    "status": "Solgt"
+  },
+  "1270": {
+    "id": "1270",
+    "address": "EGEHAVEN 28, 1. TH",
+    "area": "68",
+    "price": "3245000",
+    "status": "Solgt"
+  },
+  "1271": {
+    "id": "1271",
+    "address": "EGEHAVEN 28, 2. TV",
+    "area": "93",
+    "price": "4345000",
+    "status": "Solgt"
+  },
+  "1272": {
+    "id": "1272",
+    "address": "EGEHAVEN 28, 2. TH",
+    "area": "68",
+    "price": "3295000",
+    "status": "Solgt"
+  },
+  "1273": {
+    "id": "1273",
+    "address": "EGEHAVEN 28, 3. TV",
+    "area": "93",
+    "price": "4395000",
+    "status": "Solgt"
+  },
+  "1274": {
+    "id": "1274",
+    "address": "EGEHAVEN 28, 3. TH",
+    "area": "68",
+    "price": "3345000",
+    "status": "Solgt"
+  },
+  "1275": {
+    "id": "1275",
+    "address": "EGEHAVEN 28, 4. TV",
+    "area": "93",
+    "price": "4445000",
+    "status": "Solgt"
+  },
+  "1276": {
+    "id": "1276",
+    "address": "EGEHAVEN 28, 4. TH",
+    "area": "72",
+    "price": "3395000",
+    "status": "Solgt"
+  },
+  "1277": {
+    "id": "1277",
+    "address": "EGEHAVEN 26, st. TV",
+    "area": "68",
+    "price": "3195000",
+    "status": "Solgt"
+  },
+  "1278": {
+    "id": "1278",
+    "address": "EGEHAVEN 26, st. TH",
+    "area": "86",
+    "price": "3845000",
+    "status": "Solgt"
+  },
+  "1279": {
+    "id": "1279",
+    "address": "EGEHAVEN 26, 1. TV",
+    "area": "68",
+    "price": "3245000",
+    "status": "Solgt"
+  },
+  "1280": {
+    "id": "1280",
+    "address": "EGEHAVEN 26, 1. TH",
+    "area": "93",
+    "price": "4095000",
+    "status": "Solgt"
+  },
+  "1281": {
+    "id": "1281",
+    "address": "EGEHAVEN 26, 2. TV",
+    "area": "68",
+    "price": "3295000",
+    "status": "Solgt"
+  },
+  "1282": {
+    "id": "1282",
+    "address": "EGEHAVEN 26, 2. TH",
+    "area": "93",
+    "price": "4145000",
+    "status": "Solgt"
+  },
+  "1283": {
+    "id": "1283",
+    "address": "EGEHAVEN 26, 3. TV",
+    "area": "68",
+    "price": "3345000",
+    "status": "Solgt"
+  },
+  "1284": {
+    "id": "1284",
+    "address": "EGEHAVEN 26, 3. TH",
+    "area": "93",
+    "price": "4195000",
+    "status": "Solgt"
+  },
+  "1285": {
+    "id": "1285",
+    "address": "EGEHAVEN 24, st. TV",
+    "area": "86",
+    "price": "3845000",
+    "status": "Solgt"
+  },
+  "1286": {
+    "id": "1286",
+    "address": "EGEHAVEN 24, st. TH",
+    "area": "68",
+    "price": "3195000",
+    "status": "Solgt"
+  },
+  "1287": {
+    "id": "1287",
+    "address": "EGEHAVEN 24, 1. TV",
+    "area": "93",
+    "price": "4095000",
+    "status": "Solgt"
+  },
+  "1288": {
+    "id": "1288",
+    "address": "EGEHAVEN 24, 1. TH",
+    "area": "68",
+    "price": "3245000",
+    "status": "Solgt"
+  },
+  "1289": {
+    "id": "1289",
+    "address": "EGEHAVEN 24, 2. TV",
+    "area": "93",
+    "price": "4145000",
+    "status": "Solgt"
+  },
+  "1290": {
+    "id": "1290",
+    "address": "EGEHAVEN 24, 2. TH",
+    "area": "68",
+    "price": "3295000",
+    "status": "Solgt"
+  },
+  "1291": {
+    "id": "1291",
+    "address": "EGEHAVEN 24, 3. TV",
+    "area": "93",
+    "price": "4195000",
+    "status": "Solgt"
+  },
+  "1292": {
+    "id": "1292",
+    "address": "EGEHAVEN 24, 3. TH",
+    "area": "68",
+    "price": "3345000",
+    "status": "Solgt"
+  },
+  "1293": {
+    "id": "1293",
+    "address": "EGEHAVEN 22, st. TV",
+    "area": "76",
+    "price": "3645000",
+    "status": "Solgt"
+  },
+  "1294": {
+    "id": "1294",
+    "address": "EGEHAVEN 22, st. MF",
+    "area": "54",
+    "price": "2595000",
+    "status": "Solgt"
+  },
+  "1295": {
+    "id": "1295",
+    "address": "EGEHAVEN 22, st. TH",
+    "area": "85",
+    "price": "3845000",
+    "status": "Solgt"
+  },
+  "1296": {
+    "id": "1296",
+    "address": "EGEHAVEN 22, 1. TV",
+    "area": "76",
+    "price": "3545000",
+    "status": "Solgt"
+  },
+  "1297": {
+    "id": "1297",
+    "address": "EGEHAVEN 22, 1. MF",
+    "area": "54",
+    "price": "2645000",
+    "status": "Solgt"
+  },
+  "1298": {
+    "id": "1298",
+    "address": "EGEHAVEN 22, 1. TH",
+    "area": "92",
+    "price": "4095000",
+    "status": "Solgt"
+  },
+  "1299": {
+    "id": "1299",
+    "address": "EGEHAVEN 22, 2. TV",
+    "area": "76",
+    "price": "3595000",
+    "status": "Solgt"
+  },
+  "1300": {
+    "id": "1300",
+    "address": "EGEHAVEN 22, 2. MF",
+    "area": "54",
+    "price": "2695000",
+    "status": "Solgt"
+  },
+  "1301": {
+    "id": "1301",
+    "address": "EGEHAVEN 22, 2. TH",
+    "area": "92",
+    "price": "4145000",
+    "status": "Solgt"
+  },
+  "1302": {
+    "id": "1302",
+    "address": "EGEHAVEN 22, 3. TV",
+    "area": "76",
+    "price": "3645000",
+    "status": "Solgt"
+  },
+  "1303": {
+    "id": "1303",
+    "address": "EGEHAVEN 22, 3. MF",
+    "area": "54",
+    "price": "2745000",
+    "status": "Solgt"
+  },
+  "1304": {
+    "id": "1304",
+    "address": "EGEHAVEN 22, 3. TH",
+    "area": "92",
+    "price": "4195000",
+    "status": "Solgt"
+  },
+  "1305": {
+    "id": "1305",
+    "address": "EGEHAVEN 22, 4. TV",
+    "area": "80",
+    "price": "3775000",
+    "status": "Solgt"
+  },
+  "1306": {
+    "id": "1306",
+    "address": "EGEHAVEN 22, 4. MF",
+    "area": "54",
+    "price": "2795000",
+    "status": "Solgt"
+  },
+  "1307": {
+    "id": "1307",
+    "address": "EGEHAVEN 22, 4. TH",
+    "area": "92",
+    "price": "4245000",
+    "status": "Solgt"
+  },
+  "1308": {
+    "id": "1308",
+    "address": "EGEHAVEN 18, st. TV",
+    "area": "97",
+    "price": "4495000",
+    "status": "Købsaftale ude"
+  },
+  "1309": {
+    "id": "1309",
+    "address": "EGEHAVEN 18, st. TH",
+    "area": "81",
+    "price": "4095000",
+    "status": "Solgt"
+  },
+  "1310": {
+    "id": "1310",
+    "address": "EGEHAVEN 18, 1. TV",
+    "area": "94",
+    "price": "4395000",
+    "status": "Solgt"
+  },
+  "1311": {
+    "id": "1311",
+    "address": "EGEHAVEN 18, 1. TH",
+    "area": "97",
+    "price": "4545000",
+    "status": "Solgt"
+  },
+  "1312": {
+    "id": "1312",
+    "address": "EGEHAVEN 18, 2. TV",
+    "area": "94",
+    "price": "4445000",
+    "status": "Solgt"
+  },
+  "1313": {
+    "id": "1313",
+    "address": "EGEHAVEN 18, 2. TH",
+    "area": "97",
+    "price": "4595000",
+    "status": "Købsaftale ude"
+  },
+  "1314": {
+    "id": "1314",
+    "address": "EGEHAVEN 20, st. TV",
+    "area": "55",
+    "price": "2795000",
+    "status": "Købsaftale ude"
+  },
+  "1315": {
+    "id": "1315",
+    "address": "EGEHAVEN 20, st. MF",
+    "area": "80",
+    "price": "3995000",
+    "status": "Solgt"
+  },
+  "1316": {
+    "id": "1316",
+    "address": "EGEHAVEN 20, st. TH",
+    "area": "75",
+    "price": "3995000",
+    "status": "Købsaftale ude"
+  },
+  "1317": {
+    "id": "1317",
+    "address": "EGEHAVEN 20, 1. TV",
+    "area": "88",
+    "price": "4295000",
+    "status": "Solgt"
+  },
+  "1318": {
+    "id": "1318",
+    "address": "EGEHAVEN 20, 1. MF",
+    "area": "54",
+    "price": "2745000",
+    "status": "Solgt"
+  },
+  "1319": {
+    "id": "1319",
+    "address": "EGEHAVEN 20, 1. TH",
+    "area": "80",
+    "price": "3945000",
+    "status": "Solgt"
+  },
+  "1320": {
+    "id": "1320",
+    "address": "EGEHAVEN 20, 2. TV",
+    "area": "88",
+    "price": "4345000",
+    "status": "Solgt"
+  },
+  "1321": {
+    "id": "1321",
+    "address": "EGEHAVEN 20, 2. MF",
+    "area": "54",
+    "price": "2795000",
+    "status": "Solgt"
+  },
+  "1322": {
+    "id": "1322",
+    "address": "EGEHAVEN 20, 2. TH",
+    "area": "80",
+    "price": "3995000",
+    "status": "Solgt"
+  },
+  "1323": {
+    "id": "1323",
+    "address": "EGEHAVEN 20, 3. TV",
+    "area": "92",
+    "price": "4395000",
+    "status": "Solgt"
+  },
+  "1324": {
+    "id": "1324",
+    "address": "EGEHAVEN 20, 3. MF",
+    "area": "54",
+    "price": "2845000",
+    "status": "Solgt"
+  },
+  "1325": {
+    "id": "1325",
+    "address": "EGEHAVEN 20, 3. TH",
+    "area": "80",
+    "price": "4045000",
+    "status": "Solgt"
+  },
+  "1326": {
+    "id": "1326",
+    "address": "EGEHAVEN 14, st. TV",
+    "area": "101",
+    "price": "4795000",
+    "status": "Solgt"
+  },
+  "1327": {
+    "id": "1327",
+    "address": "EGEHAVEN 14, st. MF",
+    "area": "54",
+    "price": "2995000",
+    "status": "Solgt"
+  },
+  "1328": {
+    "id": "1328",
+    "address": "EGEHAVEN 14, st. TH",
+    "area": "86",
+    "price": "4345000",
+    "status": "Solgt"
+  },
+  "1329": {
+    "id": "1329",
+    "address": "EGEHAVEN 14, 1. TV",
+    "area": "101",
+    "price": "4745000",
+    "status": "Solgt"
+  },
+  "1330": {
+    "id": "1330",
+    "address": "EGEHAVEN 14, 1. MF",
+    "area": "54",
+    "price": "2945000",
+    "status": "Solgt"
+  },
+  "1331": {
+    "id": "1331",
+    "address": "EGEHAVEN 14, 1. TH",
+    "area": "92",
+    "price": "4295000",
+    "status": "Solgt"
+  },
+  "1332": {
+    "id": "1332",
+    "address": "EGEHAVEN 14, 2. TV",
+    "area": "101",
+    "price": "4795000",
+    "status": "Solgt"
+  },
+  "1333": {
+    "id": "1333",
+    "address": "EGEHAVEN 14, 2. MF",
+    "area": "54",
+    "price": "2995000",
+    "status": "Købsaftale ude"
+  },
+  "1334": {
+    "id": "1334",
+    "address": "EGEHAVEN 14, 2. TH",
+    "area": "92",
+    "price": "4345000",
+    "status": "Solgt"
+  },
+  "1335": {
+    "id": "1335",
+    "address": "EGEHAVEN 10, st. TV",
+    "area": "97",
+    "price": "4695000",
+    "status": "Købsaftale ude"
+  },
+  "1336": {
+    "id": "1336",
+    "address": "EGEHAVEN 10, st. TH",
+    "area": "81",
+    "price": "4395000",
+    "status": "Købsaftale ude"
+  },
+  "1337": {
+    "id": "1337",
+    "address": "EGEHAVEN 10, 1. TV",
+    "area": "94",
+    "price": "4645000",
+    "status": "Solgt"
+  },
+  "1338": {
+    "id": "1338",
+    "address": "EGEHAVEN 10, 1. TH",
+    "area": "97",
+    "price": "4645000",
+    "status": "Solgt"
+  },
+  "1339": {
+    "id": "1339",
+    "address": "EGEHAVEN 10, 2. TV",
+    "area": "94",
+    "price": "4695000",
+    "status": "Solgt"
+  },
+  "1340": {
+    "id": "1340",
+    "address": "EGEHAVEN 10, 2. TH",
+    "area": "97",
+    "price": "4695000",
+    "status": "Solgt"
+  },
+  "1341": {
+    "id": "1341",
+    "address": "EGEHAVEN 12, st. TV",
+    "area": "55",
+    "price": "3095000",
+    "status": "Solgt"
+  },
+  "1342": {
+    "id": "1342",
+    "address": "EGEHAVEN 12, st. MF",
+    "area": "101",
+    "price": "4795000",
+    "status": "Købsaftale ude"
+  },
+  "1343": {
+    "id": "1343",
+    "address": "EGEHAVEN 12, st. TH",
+    "area": "75",
+    "price": 4295000,
+    "status": "Købsaftale ude"
+  },
+  "1344": {
+    "id": "1344",
+    "address": "EGEHAVEN 12, 1. TV",
+    "area": "88",
+    "price": "4395000",
+    "status": "Solgt"
+  },
+  "1345": {
+    "id": "1345",
+    "address": "EGEHAVEN 12, 1. MF",
+    "area": "54",
+    "price": "3145000",
+    "status": "Solgt"
+  },
+  "1346": {
+    "id": "1346",
+    "address": "EGEHAVEN 12, 1. TH",
+    "area": "101",
+    "price": "4695000",
+    "status": "Købsaftale ude"
+  },
+  "1347": {
+    "id": "1347",
+    "address": "EGEHAVEN 12, 2. TV",
+    "area": "88",
+    "price": "4445000",
+    "status": "Købsaftale ude"
+  },
+  "1348": {
+    "id": "1348",
+    "address": "EGEHAVEN 12, 2. MF",
+    "area": "54",
+    "price": 3195000,
+    "status": "Købsaftale ude"
+  },
+  "1349": {
+    "id": "1349",
+    "address": "EGEHAVEN 12, 2. TH",
+    "area": "101",
+    "price": "4745000",
+    "status": "Købsaftale ude"
+  },
+  "1350": {
+    "id": "1350",
+    "address": "EGEHAVEN 12, 3. TV",
+    "area": "92",
+    "price": "4495000",
+    "status": "Solgt"
+  },
+  "1351": {
+    "id": "1351",
+    "address": "EGEHAVEN 12, 3. MH",
+    "area": "54",
+    "price": "3245000",
+    "status": "Købsaftale ude"
+  },
+  "1352": {
+    "id": "1352",
+    "address": "EGEHAVEN 12, 3. TH",
+    "area": "101",
+    "price": "4795000",
+    "status": "Solgt"
+  },
+  "1471": {
+    "id": "1471",
+    "address": "stage 4 0",
+    "area": "54",
+    "price": "2595000",
+    "status": "Kommer til salg"
+  },
+  "1474": {
+    "id": "1474",
+    "address": "stage 3 0",
+    "area": "54",
+    "price": "2595000",
+    "status": "Kommer til salg"
+  },
+  "1746": {
+    "id": "1746",
+    "address": "0 0",
+    "area": "0",
+    "price": "0",
+    "status": "Kommer til salg"
+  },
+  "1747": {
+    "id": "1747",
+    "address": "0 0",
+    "area": "0",
+    "price": "0",
+    "status": "Kommer til salg"
+  },
+  "1748": {
+    "id": "1748",
+    "address": "0 0",
+    "area": "0",
+    "price": "0",
+    "status": "Kommer til salg"
+  },
+  "1749": {
+    "id": "1749",
+    "address": "0 0",
+    "area": "0",
+    "price": "0",
+    "status": "Kommer til salg"
+  },
+  "1750": {
+    "id": "1750",
+    "address": "0 0",
+    "area": "0",
+    "price": "0",
+    "status": "Kommer til salg"
+  },
+  "1751": {
+    "id": "1751",
+    "address": "0 0",
+    "area": "0",
+    "price": "0",
+    "status": "Kommer til salg"
+  },
+  "1752": {
+    "id": "1752",
+    "address": "Humlestien 14",
+    "area": "134",
+    "price": 6345000,
+    "status": "Købsaftale ude"
+  },
+  "1753": {
+    "id": "1753",
+    "address": "Humlestien 12",
+    "area": "124",
+    "price": 6195000,
+    "status": "Købsaftale ude"
+  },
+  "1754": {
+    "id": "1754",
+    "address": "Humlestien 10",
+    "area": "126",
+    "price": 6225000,
+    "status": "Købsaftale ude"
+  },
+  "1755": {
+    "id": "1755",
+    "address": "Humlestien 8",
+    "area": "120",
+    "price": 6045000,
+    "status": "Købsaftale ude"
+  },
+  "1756": {
+    "id": "1756",
+    "address": "Humlestien 6",
+    "area": "120",
+    "price": 6045000,
+    "status": "Købsaftale ude"
+  },
+  "1757": {
+    "id": "1757",
+    "address": "Humlestien 4",
+    "area": "120",
+    "price": 5995000,
+    "status": "Købsaftale ude"
+  },
+  "1758": {
+    "id": "1758",
+    "address": "Humlestien 2",
+    "area": "126",
+    "price": 6145000,
+    "status": "Købsaftale ude"
+  },
+  "1759": {
+    "id": "1759",
+    "address": "Humlestien 11",
+    "area": "126",
+    "price": 5995000,
+    "status": "Købsaftale ude"
+  },
+  "1760": {
+    "id": "1760",
+    "address": "Humlestien 9",
+    "area": "120",
+    "price": 5895000,
+    "status": "Købsaftale ude"
+  },
+  "1761": {
+    "id": "1761",
+    "address": "Humlestien 7",
+    "area": "126",
+    "price": 5945000,
+    "status": "Købsaftale ude"
+  },
+  "1762": {
+    "id": "1762",
+    "address": "Humlestien 5",
+    "area": "124",
+    "price": 6045000,
+    "status": "Købsaftale ude"
+  },
+  "1763": {
+    "id": "1763",
+    "address": "Humlestien 3",
+    "area": "124",
+    "price": 6045000,
+    "status": "Købsaftale ude"
+  },
+  "1764": {
+    "id": "1764",
+    "address": "Humlestien 1",
+    "area": "134",
+    "price": 6195000,
+    "status": "Købsaftale ude"
+  }
+}
