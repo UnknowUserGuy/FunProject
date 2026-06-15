@@ -29,8 +29,10 @@ const CONFIG = {
   // Foelg kun bestemte id'er, fx [48, 67, 82, 85]. Tom = alle.
   watchIds: [],
 
-  // Ekstra alarm naar en bolig bliver ledig.
-  alertOnStatuses: ["ledig", "available", "fri"],
+  // Ekstra alarm naar en bolig bliver koebbar. Vi kender ikke det praecise
+  // ord endnu (ingen er ledige lige nu), saa vi daekker de sandsynlige.
+  // Uanset hvad faar du besked ved ENHVER statusaendring (se nedenfor).
+  alertOnStatuses: ["til salg", "ledig", "fri", "available", "klar til salg"],
 
   // Telegram (valgfri). Tom => kun konsol + logfil.
   telegram: {
@@ -47,9 +49,15 @@ const FIELD_ALIASES = {
   id:      ["id", "unitId", "unit_id", "number", "nr", "boligId", "boligNr"],
   address: ["address", "adresse", "title", "name", "displayName", "label"],
   area:    ["area", "areal", "size", "m2", "sqm", "boligareal", "livingArea"],
-  price:   ["price", "pris", "kontantpris", "cashPrice", "cash_price", "amount"],
-  status:  ["status", "state", "availability", "tilstand", "salgsstatus", "saleStatus"]
+  price:   ["cash_price", "price", "pris", "kontantpris", "cashPrice", "amount"],
+  // status_name foerst - det er feltet udforske bruger (Solgt / Koebsaftale ude / Kommer til salg / ...)
+  status:  ["status_name", "status", "state", "availability", "tilstand", "salgsstatus", "saleStatus", "status_id"]
 };
+
+// Disse statusser betyder at boligen IKKE er til at koebe.
+// Skifter en bolig til noget der IKKE staar her (fx "Til salg"/"Ledig"),
+// faar du ekstra fremhaevet besked (groent flag).
+const UNAVAILABLE_STATUSES = ["solgt", "koebsaftale ude", "købsaftale ude", "kommer til salg", "reserveret"];
 
 function log(msg) {
   const line = `[${new Date().toISOString()}] ${msg}`;
@@ -132,12 +140,19 @@ function diff(prevMap, currUnits) {
   return changes;
 }
 
+function formatPrice(v) {
+  const n = Number(String(v).replace(/[^\d]/g, ""));
+  if (!n || n < 1000) return null; // "1"/"0"/tomt = ingen rigtig pris
+  return n.toLocaleString("da-DK") + " kr.";
+}
+
 function describe(u) {
   const p = [];
-  if (u.id !== undefined) p.push(`#${u.id}`);
   if (u.address) p.push(u.address);
+  else if (u.id !== undefined) p.push(`#${u.id}`);
   if (u.area) p.push(`${u.area} m2`);
-  if (u.price && u.price !== "-") p.push(`${u.price}`);
+  const pr = formatPrice(u.price);
+  if (pr) p.push(pr);
   return p.join(" · ");
 }
 
@@ -155,14 +170,21 @@ async function notifyTelegram(text) {
 
 async function announce(changes) {
   const lines = [];
+  const unavailable = UNAVAILABLE_STATUSES.map(normStatus);
   for (const c of changes) {
     const relevant = inWatchlist(c.unit);
-    const alert = CONFIG.alertOnStatuses.map(normStatus).includes(normStatus(c.unit.status));
-    if (!relevant && !alert) continue;
+    const newNorm = normStatus(c.unit.status);
+    const inAlertList = CONFIG.alertOnStatuses.map(normStatus).includes(newNorm);
+    // Skiftede til noget der IKKE betyder optaget => sandsynligvis koebbar nu:
+    const becameAvailable = c.type === "status" && newNorm && !unavailable.includes(newNorm);
+    const highlight = inAlertList || becameAvailable;
+    if (!relevant && !highlight) continue;
     if (c.type === "ny") {
       lines.push(`🆕 Ny bolig: ${describe(c.unit)} — status: ${c.unit.status}`);
+    } else if (highlight) {
+      lines.push(`🟢 MULIGVIS LEDIG: ${describe(c.unit)} — ${c.from} → ${c.to}`);
     } else {
-      lines.push(`${alert ? "🟢" : "🔄"} ${describe(c.unit)} — ${c.from} → ${c.to}`);
+      lines.push(`🔄 ${describe(c.unit)} — ${c.from} → ${c.to}`);
     }
   }
   if (!lines.length) return;
