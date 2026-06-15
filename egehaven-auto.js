@@ -27,7 +27,7 @@ const CONFIG = {
   pollIntervalMs: Number(process.env.EGEHAVEN_INTERVAL || 5 * 60 * 1000),
 
   // Foelg kun bestemte id'er, fx [48, 67, 82, 85]. Tom = alle.
-  watchIds: [48, 67, 82, 85],
+  watchIds: [],
 
   // Ekstra alarm naar en bolig bliver ledig.
   alertOnStatuses: ["ledig", "available", "fri"],
