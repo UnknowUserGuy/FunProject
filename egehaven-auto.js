@@ -34,6 +34,10 @@ const CONFIG = {
   // Uanset hvad faar du besked ved ENHVER statusaendring (se nedenfor).
   alertOnStatuses: ["til salg", "ledig", "fri", "available", "klar til salg"],
 
+  // Foelg IKKE boliger med disse statusser (de er ude af spil).
+  // "Solgt" droppes, saa du kun overvaager dem der stadig kan blive ledige.
+  ignoreStatuses: ["solgt"],
+
   // Telegram (valgfri). Tom => kun konsol + logfil.
   telegram: {
     botToken: process.env.TELEGRAM_BOT_TOKEN || "",
@@ -112,13 +116,15 @@ function isRealUnit(u) {
 }
 
 function extractUnits(raw) {
+  const ignore = (CONFIG.ignoreStatuses || []).map(normStatus);
   return deepFindUnitArray(raw).map((u) => ({
     id:      pickField(u, FIELD_ALIASES.id),
     address: pickField(u, FIELD_ALIASES.address),
     area:    pickField(u, FIELD_ALIASES.area),
     price:   pickField(u, FIELD_ALIASES.price),
     status:  pickField(u, FIELD_ALIASES.status)
-  })).filter(isRealUnit);
+  })).filter(isRealUnit)
+     .filter((u) => !ignore.includes(normStatus(u.status)));
 }
 
 const normStatus = (s) => String(s ?? "").trim().toLowerCase();
