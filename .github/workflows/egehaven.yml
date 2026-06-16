@@ -2,7 +2,8 @@ name: Egehaven boligovervaagning
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # hvert 10. minut (UTC). Kan blive lidt forsinket paa gratis-plan.
+    - cron: "*/10 * * * *"   # boligtjek hvert 10. minut (UTC)
+    - cron: "0 * * * *"      # oprydning en gang i timen (UTC)
   workflow_dispatch: {}        # giver en "Run workflow"-knap til manuel test
 
 permissions:
@@ -15,6 +16,8 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    # Koer paa 10-min-skemaet og ved manuel koersel - men IKKE paa time-skemaet
+    if: github.event_name != 'schedule' || github.event.schedule == '*/10 * * * *'
     steps:
       - name: Hent repo
         uses: actions/checkout@v4
@@ -73,3 +76,20 @@ jobs:
           done
           echo "Kunne ikke pushe efter 5 forsoeg."
           exit 1
+
+  cleanup:
+    runs-on: ubuntu-latest
+    # Koer kun paa time-skemaet (og ved manuel koersel)
+    if: github.event_name != 'schedule' || github.event.schedule == '0 * * * *'
+    permissions:
+      actions: write           # noedvendigt for at slette gamle koersler
+    steps:
+      - name: Ryd op i koersler aeldre end 1 dag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CUTOFF=$(date -d '1 day ago' +%s)
+          gh run list --repo "$GITHUB_REPOSITORY" --limit 1000 \
+            --json databaseId,createdAt \
+            --jq ".[] | select((.createdAt | fromdateiso8601) < $CUTOFF) | .databaseId" \
+          | xargs -r -I{} gh run delete {} --repo "$GITHUB_REPOSITORY"
