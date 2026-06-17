@@ -1,13 +1,16 @@
 name: Boligovervaagning (Egehaven + Astashave)
 
 on:
-  schedule:
-    - cron: "*/10 * * * *"   # hvert 10. minut (UTC). Kan blive lidt forsinket paa gratis-plan.
-  workflow_dispatch: {}        # giver en "Run workflow"-knap til manuel test
+  # Din egen cron-tjeneste kalder dette via GitHub-API'et hvert 10. minut.
+  # (GitHubs egen "schedule" er bevidst FJERNET - den kan forsinkes i timevis
+  #  paa gratis-plan og er aarsag til de sene beskeder.)
+  workflow_dispatch: {}
 
 permissions:
   contents: write              # saa den maa gemme state-filerne tilbage i repoet
 
+# Koer kun ÉN ad gangen, og afbryd ALDRIG en igangvaerende koersel midt i et
+# git-push. Nye triggers venter paent i koe -> ingen push-konflikter.
 concurrency:
   group: boligovervaagning
   cancel-in-progress: false
@@ -15,44 +18,44 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    # Faerdigbygget Playwright-image: Chromium + alle system-deps er ALLEREDE
+    # installeret. Det fjerner det langsomme/ustabile apt-install-trin, saa
+    # hver koersel starter paa faa sekunder i stedet for minutter.
+    container:
+      image: mcr.microsoft.com/playwright:v1.49.0-jammy
     steps:
       - name: Hent repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Opsaet Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+      - name: Tillad git i container
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Cache Playwright-browser (hurtigere koersler)
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}
+      - name: Installer afhaengigheder
+        run: npm install
 
-      - name: Installer afhaengigheder + Chromium
-        run: |
-          npm install
-          npx playwright install --with-deps chromium
-
+      # 1) TJEK: laeser state, henter friske data, beregner aendringer,
+      #    GEMMER ny state lokalt og skriver beskeder til outbox.json.
+      #    Sender IKKE Telegram her.
       - name: Tjek boligstatus (alle sites)
         env:
           EGEHAVEN_URL: ${{ secrets.EGEHAVEN_URL }}
           ASTASHAVE_URL: ${{ secrets.ASTASHAVE_URL }}
           EGEHAVEN_ENABLED: ${{ vars.EGEHAVEN_ENABLED }}
           ASTASHAVE_ENABLED: ${{ vars.ASTASHAVE_ENABLED }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: node egehaven-auto.js --once
+        run: node egehaven-auto.js --check
 
-      - name: Gem state hvis den er aendret
+      # 2) GEM STATE: commit + push den nye state. Lykkes push IKKE efter 5
+      #    forsoeg, fejler jobbet HER - og saa naar vi aldrig at sende besked.
+      #    Naeste koersel laeser den (uaendrede) gamle state og proever igen.
+      #    Resultat: en besked sendes ALDRIG uden at aendringen ogsaa er gemt
+      #    -> ingen dubletter.
+      - name: Gem state (push foer besked sendes)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           for i in 1 2 3 4 5; do
-            # Behold vores friske state-filer, men stil os ellers paa nyeste remote:
             mkdir -p /tmp/state && cp -f ./*-state.json /tmp/state/ 2>/dev/null || true
             git fetch origin "${GITHUB_REF_NAME}"
             git reset --hard "origin/${GITHUB_REF_NAME}"
@@ -70,20 +73,30 @@ jobs:
             echo "Push afvist - henter nyeste og proever igen ($i)..."
             sleep 5
           done
-          echo "Kunne ikke pushe efter 5 forsoeg."
+          echo "Kunne ikke pushe efter 5 forsoeg - sender IKKE besked denne gang."
           exit 1
+
+      # 3) SEND BESKED: koeres KUN naar state er gemt ovenfor (steps stopper
+      #    ved fejl). Sender alt fra outbox.json til Telegram.
+      - name: Send Telegram-besked(er)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node egehaven-auto.js --notify
 
   cleanup:
     runs-on: ubuntu-latest
     permissions:
       actions: write           # noedvendigt for at slette gamle koersler
     steps:
-      - name: Ryd op i koersler aeldre end 1 time
+      - name: Ryd op i KUN gennemfoerte koersler aeldre end 1 time
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # Vi sletter kun "success"-koersler. Mislykkede/afbrudte koersler
+          # BEVARES, saa du kan se og fejlfinde dem hvis noget gaar galt.
           CUTOFF=$(date -d '1 hour ago' +%s)
           gh run list --repo "$GITHUB_REPOSITORY" --limit 1000 \
-            --json databaseId,createdAt \
-            --jq ".[] | select((.createdAt | fromdateiso8601) < $CUTOFF) | .databaseId" \
+            --json databaseId,createdAt,conclusion \
+            --jq ".[] | select((.createdAt | fromdateiso8601) < $CUTOFF and .conclusion == \"success\") | .databaseId" \
           | xargs -r -I{} gh run delete {} --repo "$GITHUB_REPOSITORY"
