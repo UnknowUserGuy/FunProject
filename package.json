@@ -5,10 +5,12 @@
   "description": "Overvaager boligstatus paa Egehaven og Astashave (udforske.com) og giver besked ved aendringer",
   "scripts": {
     "discover": "node egehaven-auto.js --discover",
+    "check": "node egehaven-auto.js --check",
+    "notify": "node egehaven-auto.js --notify",
     "once": "node egehaven-auto.js --once",
     "watch": "node egehaven-auto.js"
   },
   "dependencies": {
-    "playwright": "^1.49.0"
+    "playwright": "1.49.0"
   }
 }
