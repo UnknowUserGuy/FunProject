@@ -1,11 +1,4 @@
 {
-  "1438": {
-    "id": "1438",
-    "address": "Kornblomstvej 2A, 1. tv",
-    "area": "97",
-    "price": 5995000,
-    "status": "Reserveret"
-  },
   "1439": {
     "id": "1439",
     "address": "Kornblomstvej 2A, 1. th",
@@ -18,7 +11,7 @@
     "address": "Kornblomstvej 2A, 3. tv",
     "area": "97",
     "price": 6095000,
-    "status": "Ledig"
+    "status": "Reserveret"
   },
   "1443": {
     "id": "1443",
@@ -144,7 +137,7 @@
     "address": "Kornblomstvej 4B, 2. tv",
     "area": "91",
     "price": 6345000,
-    "status": "Ledig"
+    "status": "Reserveret"
   },
   "1468": {
     "id": "1468",
