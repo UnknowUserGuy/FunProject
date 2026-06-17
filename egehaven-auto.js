@@ -22,7 +22,7 @@ const fs = require("fs");
 
 // ============== KONFIGURATION ==============
 const CONFIG = {
-  groundUrl: process.env.EGEHAVEN_URL || "https://astashaven.udforske.com/ground/47/AH",
+  groundUrl: process.env.EGEHAVEN_URL || "https://astashaven.udforske.com/ground/53/AH",
 
   pollIntervalMs: Number(process.env.EGEHAVEN_INTERVAL || 5 * 60 * 1000),
 
