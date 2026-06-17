@@ -1,0 +1,163 @@
+{
+  "1439": {
+    "id": "1439",
+    "address": "Kornblomstvej 2A, 1. th",
+    "area": "112",
+    "price": 6995000,
+    "status": "Ledig"
+  },
+  "1442": {
+    "id": "1442",
+    "address": "Kornblomstvej 2A, 3. tv",
+    "area": "97",
+    "price": 6095000,
+    "status": "Reserveret"
+  },
+  "1443": {
+    "id": "1443",
+    "address": "Kornblomstvej 2A, 3. th",
+    "area": "112",
+    "price": 7045000,
+    "status": "Reserveret"
+  },
+  "1444": {
+    "id": "1444",
+    "address": "Kornblomstvej 2A, 4. tv",
+    "area": "97",
+    "price": 6145000,
+    "status": "Reserveret"
+  },
+  "1445": {
+    "id": "1445",
+    "address": "Kornblomstvej 2A, 4. th",
+    "area": "112",
+    "price": 7095000,
+    "status": "Reserveret"
+  },
+  "1448": {
+    "id": "1448",
+    "address": "Kornblomstvej 2B, 1. th",
+    "area": "110",
+    "price": 6695000,
+    "status": "Ledig"
+  },
+  "1449": {
+    "id": "1449",
+    "address": "Kornblomstvej 2B, 2. tv",
+    "area": "84",
+    "price": 5745000,
+    "status": "Reserveret"
+  },
+  "1450": {
+    "id": "1450",
+    "address": "Kornblomstvej 2B, 2. th",
+    "area": "110",
+    "price": 6745000,
+    "status": "Ledig"
+  },
+  "1451": {
+    "id": "1451",
+    "address": "Kornblomstvej 2B, 3. tv",
+    "area": "84",
+    "price": 5795000,
+    "status": "Reserveret"
+  },
+  "1452": {
+    "id": "1452",
+    "address": "Kornblomstvej 2B, 3. th",
+    "area": "110",
+    "price": 6795000,
+    "status": "Reserveret"
+  },
+  "1453": {
+    "id": "1453",
+    "address": "Kornblomstvej 2B, 4. tv",
+    "area": "85",
+    "price": 5995000,
+    "status": "Reserveret"
+  },
+  "1454": {
+    "id": "1454",
+    "address": "Kornblomstvej 2B, 4. th",
+    "area": "107",
+    "price": 6895000,
+    "status": "Reserveret"
+  },
+  "1455": {
+    "id": "1455",
+    "address": "Kornblomstvej 2B, 5. tv",
+    "area": "68",
+    "price": 4495000,
+    "status": "Reserveret"
+  },
+  "1456": {
+    "id": "1456",
+    "address": "Kornblomstvej 2B, 5. th",
+    "area": "85",
+    "price": 5395000,
+    "status": "Ledig"
+  },
+  "1458": {
+    "id": "1458",
+    "address": "Kornblomstvej 4A, st. th",
+    "area": "101",
+    "price": 6995000,
+    "status": "Ledig"
+  },
+  "1459": {
+    "id": "1459",
+    "address": "Kornblomstvej 4A, 1. tv",
+    "area": "97",
+    "price": 6495000,
+    "status": "Reserveret"
+  },
+  "1463": {
+    "id": "1463",
+    "address": "Kornblomstvej 4A, 3. tv",
+    "area": "97",
+    "price": 6595000,
+    "status": "Reserveret"
+  },
+  "1464": {
+    "id": "1464",
+    "address": "Kornblomstvej 4A, 3. th",
+    "area": "88",
+    "price": 6195000,
+    "status": "Reserveret"
+  },
+  "1466": {
+    "id": "1466",
+    "address": "Kornblomstvej 4B, 1. th",
+    "area": "83",
+    "price": 6195000,
+    "status": "Reserveret"
+  },
+  "1467": {
+    "id": "1467",
+    "address": "Kornblomstvej 4B, 2. tv",
+    "area": "91",
+    "price": 6345000,
+    "status": "Reserveret"
+  },
+  "1468": {
+    "id": "1468",
+    "address": "Kornblomstvej 4B, 2. th",
+    "area": "83",
+    "price": 6245000,
+    "status": "Reserveret"
+  },
+  "1469": {
+    "id": "1469",
+    "address": "Kornblomstvej 4B, 3. tv",
+    "area": "91",
+    "price": 6395000,
+    "status": "Reserveret"
+  },
+  "1470": {
+    "id": "1470",
+    "address": "Kornblomstvej 4B, 3. th",
+    "area": "83",
+    "price": 6295000,
+    "status": "Reserveret"
+  }
+}
