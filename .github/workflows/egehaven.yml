@@ -1,0 +1,89 @@
+name: Boligovervaagning (Egehaven + Astashave)
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # hvert 10. minut (UTC). Kan blive lidt forsinket paa gratis-plan.
+  workflow_dispatch: {}        # giver en "Run workflow"-knap til manuel test
+
+permissions:
+  contents: write              # saa den maa gemme state-filerne tilbage i repoet
+
+concurrency:
+  group: boligovervaagning
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hent repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Opsaet Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache Playwright-browser (hurtigere koersler)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}
+
+      - name: Installer afhaengigheder + Chromium
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+
+      - name: Tjek boligstatus (alle sites)
+        env:
+          EGEHAVEN_URL: ${{ secrets.EGEHAVEN_URL }}
+          ASTASHAVE_URL: ${{ secrets.ASTASHAVE_URL }}
+          EGEHAVEN_ENABLED: ${{ vars.EGEHAVEN_ENABLED }}
+          ASTASHAVE_ENABLED: ${{ vars.ASTASHAVE_ENABLED }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node egehaven-auto.js --once
+
+      - name: Gem state hvis den er aendret
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            # Behold vores friske state-filer, men stil os ellers paa nyeste remote:
+            mkdir -p /tmp/state && cp -f ./*-state.json /tmp/state/ 2>/dev/null || true
+            git fetch origin "${GITHUB_REF_NAME}"
+            git reset --hard "origin/${GITHUB_REF_NAME}"
+            cp -f /tmp/state/*-state.json ./ 2>/dev/null || true
+            if [ -z "$(git status --porcelain -- '*-state.json')" ]; then
+              echo "Ingen aendring i state - intet at gemme."
+              exit 0
+            fi
+            git add ./*-state.json
+            git commit -m "Opdater boligstatus $(date -u +%FT%TZ)"
+            if git push; then
+              echo "State gemt."
+              exit 0
+            fi
+            echo "Push afvist - henter nyeste og proever igen ($i)..."
+            sleep 5
+          done
+          echo "Kunne ikke pushe efter 5 forsoeg."
+          exit 1
+
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write           # noedvendigt for at slette gamle koersler
+    steps:
+      - name: Ryd op i koersler aeldre end 1 time
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CUTOFF=$(date -d '1 hour ago' +%s)
+          gh run list --repo "$GITHUB_REPOSITORY" --limit 1000 \
+            --json databaseId,createdAt \
+            --jq ".[] | select((.createdAt | fromdateiso8601) < $CUTOFF) | .databaseId" \
+          | xargs -r -I{} gh run delete {} --repo "$GITHUB_REPOSITORY"
