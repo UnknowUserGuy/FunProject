@@ -205,22 +205,24 @@ async function notifyTelegram(text) {
 }
 
 async function announce(site, changes) {
+  // Du faar besked om ALT: enhver NY bolig (uanset status) og ENHVER
+  // statusaendring paa en eksisterende bolig. watchIds filtrerer IKKE -
+  // den saetter kun en ⭐ paa de boliger du evt. har valgt at foelge ekstra.
   const lines = [];
   const unavailable = UNAVAILABLE_STATUSES.map(normStatus);
+  const alertList = CONFIG.alertOnStatuses.map(normStatus);
   for (const c of changes) {
-    const relevant = inWatchlist(c.unit);
+    const star = (CONFIG.watchIds.length && inWatchlist(c.unit)) ? "⭐ " : "";
     const newNorm = normStatus(c.unit.status);
-    const inAlertList = CONFIG.alertOnStatuses.map(normStatus).includes(newNorm);
-    // Skiftede til noget der IKKE betyder optaget => sandsynligvis koebbar nu:
-    const becameAvailable = c.type === "status" && newNorm && !unavailable.includes(newNorm);
-    const highlight = inAlertList || becameAvailable;
-    if (!relevant && !highlight) continue;
+    // "available" = en status der IKKE staar paa optaget-listen (fx Ledig).
+    const isAvailable = !!newNorm && !unavailable.includes(newNorm);
     if (c.type === "ny") {
-      lines.push(`🆕 Ny bolig: ${describe(c.unit)} — status: ${c.unit.status}`);
-    } else if (highlight) {
-      lines.push(`🟢 MULIGVIS LEDIG: ${describe(c.unit)} — ${c.from} → ${c.to}`);
-    } else {
-      lines.push(`🔄 ${describe(c.unit)} — ${c.from} → ${c.to}`);
+      const tag = isAvailable ? "🆕🟢 NY LEDIG BOLIG" : "🆕 Ny bolig";
+      lines.push(`${star}${tag}: ${describe(c.unit)} — status: ${c.unit.status}`);
+    } else { // statusskift paa en bolig vi allerede kender
+      const becameAvailable = isAvailable || alertList.includes(newNorm);
+      const tag = becameAvailable ? "🟢 MULIGVIS LEDIG" : "🔄 Statusskift";
+      lines.push(`${star}${tag}: ${describe(c.unit)} — ${c.from} → ${c.to}`);
     }
   }
   if (!lines.length) return;
