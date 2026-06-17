@@ -66,6 +66,11 @@ const CONFIG = {
 
   logFile: "./egehaven-watcher.log"
 };
+
+// Midlertidig "udbakke": --check skriver beskeder hertil (sender IKKE),
+// og --notify sender dem BAGEFTER - foerst naar state er gemt/pushet.
+// Filen committes ALDRIG (staar i .gitignore).
+const OUTBOX_FILE = process.env.OUTBOX_FILE || "./outbox.json";
 // ===========================================
 
 const FIELD_ALIASES = {
@@ -194,17 +199,23 @@ function describe(u) {
 
 async function notifyTelegram(text) {
   const { botToken, chatId } = CONFIG.telegram;
-  if (!botToken || !chatId) return;
+  if (!botToken || !chatId) {
+    log("Telegram er ikke konfigureret (token/chatId mangler) - springer afsendelse over.");
+    return false;
+  }
   try {
-    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    const r = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id: chatId, text })
     });
-  } catch (e) { log(`Telegram-fejl: ${e.message}`); }
+    if (!r.ok) { log(`Telegram svarede HTTP ${r.status}`); return false; }
+    return true;
+  } catch (e) { log(`Telegram-fejl: ${e.message}`); return false; }
 }
 
-async function announce(site, changes) {
+// Bygger besked-teksten (sender den IKKE). Returnerer string eller null.
+function buildAnnouncement(site, changes) {
   // Du faar besked om ALT: enhver NY bolig (uanset status) og ENHVER
   // statusaendring paa en eksisterende bolig. watchIds filtrerer IKKE -
   // den saetter kun en ⭐ paa de boliger du evt. har valgt at foelge ekstra.
@@ -225,10 +236,8 @@ async function announce(site, changes) {
       lines.push(`${star}${tag}: ${describe(c.unit)} — ${c.from} → ${c.to}`);
     }
   }
-  if (!lines.length) return;
-  const msg = `${site.name} – ændringer:\n` + lines.join("\n");
-  log(msg);
-  await notifyTelegram(msg);
+  if (!lines.length) return null;
+  return `${site.name} – ændringer:\n` + lines.join("\n");
 }
 
 /**
@@ -247,6 +256,13 @@ async function sniff(page, site) {
     } catch (_) { /* ignorer ikke-parsebare svar */ }
   };
   page.on("response", handler);
+
+  // Tving friske data: tilfoej no-cache paa alle requests, saa hverken
+  // browser-cache eller en evt. CDN serverer en gammel boligliste.
+  await page.route("**/*", (route) => {
+    const headers = { ...route.request().headers(), "cache-control": "no-cache", "pragma": "no-cache" };
+    route.continue({ headers });
+  });
 
   await page.goto(site.url, { waitUntil: "networkidle", timeout: 60000 });
   // Giv evt. sene kald lov til at lande:
@@ -363,14 +379,19 @@ async function runDump(sites) {
   }
 }
 
-async function checkOnce(browser, site) {
+async function checkSite(browser, site, outbox, { notify }) {
   const page = await browser.newPage();
   let result;
   try { result = await sniff(page, site); }
   finally { await page.close(); }
 
   const units = result.units;
-  if (!units.length) { log(`[${site.name}] ADVARSEL: ingen boliger fundet i dette tjek.`); return; }
+  if (!units.length) {
+    // Ingen data (fx siden fejlede/var tom): roer IKKE ved state, saa vi
+    // ikke ved en fejl "glemmer" alle boliger og spammer falske beskeder.
+    log(`[${site.name}] ADVARSEL: ingen boliger fundet i dette tjek. State er uaendret.`);
+    return;
+  }
 
   const prevMap = loadState(site);
   if (prevMap === null) {
@@ -378,10 +399,27 @@ async function checkOnce(browser, site) {
     log(`[${site.name}] Baseline gemt med ${units.length} boliger. Overvaager nu...`);
     return;
   }
+
   const changes = diff(prevMap, units);
-  if (changes.length) await announce(site, changes);
-  else log(`[${site.name}] Ingen aendringer (${units.length} boliger tjekket).`);
+
+  // VIGTIGT: gem state FOERST. En besked maa aldrig sendes uden at den
+  // tilhoerende state-aendring ogsaa er gemt - ellers opdager naeste
+  // koersel samme aendring igen og sender dubletter.
   saveState(site, units);
+
+  if (!changes.length) {
+    log(`[${site.name}] Ingen aendringer (${units.length} boliger tjekket).`);
+    return;
+  }
+
+  const msg = buildAnnouncement(site, changes);
+  if (!msg) return;
+  log(msg);
+  if (notify) {
+    await notifyTelegram(msg);   // --once: send direkte (lokal brug)
+  } else {
+    outbox.push(msg);            // --check: gem til senere (efter git push)
+  }
 }
 
 // Uden --site: kun sites med enabled=true. Med --site=navn: tvinges med (god til test).
@@ -413,18 +451,50 @@ function selectedSites() {
     return;
   }
 
+  // --notify: send beskeder fra udbakken. Bruger INGEN browser.
+  // Koeres FOERST efter at state er gemt+pushet, saa en sendt besked
+  // altid svarer til en gemt state-aendring (= ingen dubletter).
+  if (process.argv.includes("--notify")) {
+    let msgs = [];
+    try { msgs = JSON.parse(fs.readFileSync(OUTBOX_FILE, "utf8")); } catch (_) { msgs = []; }
+    if (!Array.isArray(msgs) || !msgs.length) {
+      log("Udbakken er tom - intet at sende.");
+      return;
+    }
+    let ok = 0, fail = 0;
+    for (const m of msgs) { (await notifyTelegram(m)) ? ok++ : fail++; }
+    log(`Telegram: ${ok} sendt, ${fail} fejlet.`);
+    if (fail === 0) {
+      try { fs.unlinkSync(OUTBOX_FILE); } catch (_) {}
+    } else {
+      // Behold udbakken og fejl, saa man kan se det og evt. koere igen.
+      process.exitCode = 1;
+    }
+    return;
+  }
+
   const browser = await chromium.launch();
   try {
-    if (process.argv.includes("--once")) {
+    const isCheck = process.argv.includes("--check");
+    const isOnce = process.argv.includes("--once");
+
+    if (isCheck || isOnce) {
+      const outbox = [];
       for (const site of sites) {
-        try { await checkOnce(browser, site); }
+        try { await checkSite(browser, site, outbox, { notify: isOnce }); }
         catch (e) { log(`[${site.name}] Fejl under tjek: ${e.message}`); }
+      }
+      // --check skriver beskederne til udbakken (sender dem ikke her).
+      if (isCheck) {
+        try { fs.writeFileSync(OUTBOX_FILE, JSON.stringify(outbox, null, 2)); }
+        catch (e) { log(`Kunne ikke skrive udbakke: ${e.message}`); }
+        log(`Udbakke skrevet med ${outbox.length} besked(er).`);
       }
     } else {
       log(`Starter overvaagning af ${sites.length} site(s). Tjekker hvert ${Math.round(CONFIG.pollIntervalMs / 1000)} sek.`);
       for (;;) {
         for (const site of sites) {
-          try { await checkOnce(browser, site); }
+          try { await checkSite(browser, site, [], { notify: true }); }
           catch (e) { log(`[${site.name}] Fejl under tjek: ${e.message}`); }
         }
         await new Promise((r) => setTimeout(r, CONFIG.pollIntervalMs));
