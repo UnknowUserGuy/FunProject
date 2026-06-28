@@ -11,7 +11,7 @@
     "address": "Kornblomstvej 2A, 3. tv",
     "area": "97",
     "price": 6095000,
-    "status": "Købsaftale ude"
+    "status": "Ledig"
   },
   "1443": {
     "id": "1443",
@@ -41,13 +41,6 @@
     "price": 6695000,
     "status": "Ledig"
   },
-  "1449": {
-    "id": "1449",
-    "address": "Kornblomstvej 2B, 2. tv",
-    "area": "84",
-    "price": 5745000,
-    "status": "Købsaftale ude"
-  },
   "1450": {
     "id": "1450",
     "address": "Kornblomstvej 2B, 2. th",
@@ -60,27 +53,6 @@
     "address": "Kornblomstvej 2B, 3. tv",
     "area": "84",
     "price": 5795000,
-    "status": "Købsaftale ude"
-  },
-  "1452": {
-    "id": "1452",
-    "address": "Kornblomstvej 2B, 3. th",
-    "area": "110",
-    "price": 6795000,
-    "status": "Købsaftale ude"
-  },
-  "1453": {
-    "id": "1453",
-    "address": "Kornblomstvej 2B, 4. tv",
-    "area": "85",
-    "price": 5995000,
-    "status": "Købsaftale ude"
-  },
-  "1454": {
-    "id": "1454",
-    "address": "Kornblomstvej 2B, 4. th",
-    "area": "107",
-    "price": 6895000,
     "status": "Købsaftale ude"
   },
   "1455": {
@@ -102,20 +74,6 @@
     "address": "Kornblomstvej 4A, st. th",
     "area": "101",
     "price": 6995000,
-    "status": "Købsaftale ude"
-  },
-  "1463": {
-    "id": "1463",
-    "address": "Kornblomstvej 4A, 3. tv",
-    "area": "97",
-    "price": 6595000,
-    "status": "Købsaftale ude"
-  },
-  "1464": {
-    "id": "1464",
-    "address": "Kornblomstvej 4A, 3. th",
-    "area": "88",
-    "price": 6195000,
     "status": "Købsaftale ude"
   },
   "1466": {
@@ -144,13 +102,6 @@
     "address": "Kornblomstvej 4B, 3. tv",
     "area": "91",
     "price": 6395000,
-    "status": "Købsaftale ude"
-  },
-  "1470": {
-    "id": "1470",
-    "address": "Kornblomstvej 4B, 3. th",
-    "area": "83",
-    "price": 6295000,
     "status": "Købsaftale ude"
   }
 }
