@@ -83,32 +83,11 @@
     "price": "4745000",
     "status": "Købsaftale ude"
   },
-  "1351": {
-    "id": "1351",
-    "address": "EGEHAVEN 12, 3. MH",
-    "area": "54",
-    "price": "3245000",
-    "status": "Købsaftale ude"
-  },
-  "1752": {
-    "id": "1752",
-    "address": "Humlestien 14",
-    "area": "134",
-    "price": 6345000,
-    "status": "Købsaftale ude"
-  },
   "1753": {
     "id": "1753",
     "address": "Humlestien 12",
     "area": "124",
     "price": 6195000,
-    "status": "Købsaftale ude"
-  },
-  "1754": {
-    "id": "1754",
-    "address": "Humlestien 10",
-    "area": "126",
-    "price": 6225000,
     "status": "Købsaftale ude"
   },
   "1755": {
@@ -130,20 +109,6 @@
     "address": "Humlestien 2",
     "area": "126",
     "price": 6145000,
-    "status": "Købsaftale ude"
-  },
-  "1759": {
-    "id": "1759",
-    "address": "Humlestien 11",
-    "area": "126",
-    "price": 5995000,
-    "status": "Købsaftale ude"
-  },
-  "1761": {
-    "id": "1761",
-    "address": "Humlestien 7",
-    "area": "126",
-    "price": 5945000,
     "status": "Købsaftale ude"
   },
   "1762": {
