@@ -83,25 +83,11 @@
     "price": "4745000",
     "status": "Købsaftale ude"
   },
-  "1756": {
-    "id": "1756",
-    "address": "Humlestien 6",
-    "area": "120",
-    "price": 6045000,
-    "status": "Købsaftale ude"
-  },
   "1758": {
     "id": "1758",
     "address": "Humlestien 2",
     "area": "126",
     "price": 6145000,
-    "status": "Købsaftale ude"
-  },
-  "1762": {
-    "id": "1762",
-    "address": "Humlestien 5",
-    "area": "124",
-    "price": 6045000,
     "status": "Købsaftale ude"
   }
 }
