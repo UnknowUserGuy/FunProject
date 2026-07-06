@@ -20,20 +20,6 @@
     "price": "2795000",
     "status": "Købsaftale ude"
   },
-  "1333": {
-    "id": "1333",
-    "address": "EGEHAVEN 14, 2. MF",
-    "area": "54",
-    "price": "2995000",
-    "status": "Købsaftale ude"
-  },
-  "1335": {
-    "id": "1335",
-    "address": "EGEHAVEN 10, st. TV",
-    "area": "97",
-    "price": "4695000",
-    "status": "Købsaftale ude"
-  },
   "1336": {
     "id": "1336",
     "address": "EGEHAVEN 10, st. TH",
@@ -67,20 +53,6 @@
     "address": "EGEHAVEN 12, 2. TV",
     "area": "88",
     "price": "4445000",
-    "status": "Købsaftale ude"
-  },
-  "1348": {
-    "id": "1348",
-    "address": "EGEHAVEN 12, 2. MF",
-    "area": "54",
-    "price": 3195000,
-    "status": "Købsaftale ude"
-  },
-  "1349": {
-    "id": "1349",
-    "address": "EGEHAVEN 12, 2. TH",
-    "area": "101",
-    "price": "4745000",
     "status": "Købsaftale ude"
   },
   "1758": {
