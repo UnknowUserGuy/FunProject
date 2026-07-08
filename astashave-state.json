@@ -20,13 +20,6 @@
     "price": 7045000,
     "status": "Reserveret"
   },
-  "1444": {
-    "id": "1444",
-    "address": "Kornblomstvej 2A, 4. tv",
-    "area": "97",
-    "price": 6145000,
-    "status": "Købsaftale ude"
-  },
   "1445": {
     "id": "1445",
     "address": "Kornblomstvej 2A, 4. th",
@@ -81,7 +74,7 @@
     "address": "Kornblomstvej 4B, 2. tv",
     "area": "91",
     "price": 6345000,
-    "status": "Ledig"
+    "status": "Reserveret"
   },
   "1468": {
     "id": "1468",
