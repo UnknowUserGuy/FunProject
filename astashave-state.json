@@ -6,6 +6,13 @@
     "price": 6995000,
     "status": "Ledig"
   },
+  "1441": {
+    "id": "1441",
+    "address": "Kornblomstvej 2A, 2. th",
+    "area": "112",
+    "price": 7045000,
+    "status": "Ledig"
+  },
   "1442": {
     "id": "1442",
     "address": "Kornblomstvej 2A, 3. tv",
@@ -41,13 +48,6 @@
     "price": 6745000,
     "status": "Ledig"
   },
-  "1451": {
-    "id": "1451",
-    "address": "Kornblomstvej 2B, 3. tv",
-    "area": "84",
-    "price": 5795000,
-    "status": "Købsaftale ude"
-  },
   "1455": {
     "id": "1455",
     "address": "Kornblomstvej 2B, 5. tv",
@@ -61,13 +61,6 @@
     "area": "85",
     "price": 5395000,
     "status": "Ledig"
-  },
-  "1458": {
-    "id": "1458",
-    "address": "Kornblomstvej 4A, st. th",
-    "area": "101",
-    "price": 6995000,
-    "status": "Købsaftale ude"
   },
   "1467": {
     "id": "1467",
