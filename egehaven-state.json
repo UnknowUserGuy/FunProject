@@ -27,26 +27,12 @@
     "price": "4395000",
     "status": "Købsaftale ude"
   },
-  "1342": {
-    "id": "1342",
-    "address": "EGEHAVEN 12, st. MF",
-    "area": "101",
-    "price": "4795000",
-    "status": "Købsaftale ude"
-  },
   "1343": {
     "id": "1343",
     "address": "EGEHAVEN 12, st. TH",
     "area": "75",
     "price": 4295000,
     "status": "Ledig"
-  },
-  "1346": {
-    "id": "1346",
-    "address": "EGEHAVEN 12, 1. TH",
-    "area": "101",
-    "price": "4695000",
-    "status": "Købsaftale ude"
   },
   "1758": {
     "id": "1758",
