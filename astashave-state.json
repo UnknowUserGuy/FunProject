@@ -48,13 +48,6 @@
     "price": 6745000,
     "status": "Ledig"
   },
-  "1455": {
-    "id": "1455",
-    "address": "Kornblomstvej 2B, 5. tv",
-    "area": "68",
-    "price": 4495000,
-    "status": "Købsaftale ude"
-  },
   "1456": {
     "id": "1456",
     "address": "Kornblomstvej 2B, 5. th",
@@ -81,6 +74,6 @@
     "address": "Kornblomstvej 4B, 3. tv",
     "area": "91",
     "price": 6395000,
-    "status": "Købsaftale ude"
+    "status": "Ledig"
   }
 }
