@@ -76,7 +76,7 @@ jobs:
           echo "Kunne ikke pushe efter 5 forsoeg - sender IKKE besked denne gang."
           exit 1
 
-      # 3) SEND BESKED: koeres KUN naar state er gemt ovenfor (steps stopper 
+      # 3) SEND BESKED: koeres KUN naar state er gemt ovenfor (steps stopper
       #    ved fejl). Sender alt fra outbox.json til Telegram.
       - name: Send Telegram-besked(er)
         env:
